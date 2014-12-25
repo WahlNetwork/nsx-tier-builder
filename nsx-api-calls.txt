@@ -1,0 +1,38 @@
+====================================================
+NSX Manager
+====================================================
+global info = GET https://<nsxmgr-ip>/api/1.0/appliance-management/global/info
+network = GET https://<nsxmgr-ip>/api/1.0/appliance-management/system/network
+syslog = GET https://<nsxmgr-ip>/api/1.0/appliance-management/system/syslogserver
+backup = GET https://<nsxmgr-ip>/api/1.0/appliance-management/backuprestore/backupsetting
+avail backups = GET https://<nsxmgr-ip>/api/1.0/appliance-management/backuprestore/backup
+
+====================================================
+Controllers, VXLAN, Segments, Transport, etc.
+====================================================
+
+controllers = GET https://<nsxmgr-ip>/api/2.0/vdn/controller
+segment id = GET https://<vsm-ip>/api/2.0/vdn/config/segments
+network scopes = GET https://<vsm-ip>/api/2.0/vdn/scopes
+
+====================================================
+Logical Switches
+====================================================
+
+query switches = GET https://<vsm-ip>/api/2.0/vdn/switches
+query DLS on scope = GET https://<vsm-ip>/api/2.0/vdn/scopes/scopeID/virtualwires
+query all DLS = GET https://<vsm-ip>/api/2.0/vdn/virtualwires
+create switch = POST https://<vsm-ip>/api/2.0/vdn/scopes/scopeID/virtualwires
+
+get network scopes = GET https://<vsm-ip>/api/2.0/vdn/scopes
+
+====================================================
+NSX Edges
+====================================================
+All Edge Devices = https://nsx.glacier.local/api/4.0/edges
+Management Interface = https://nsx.glacier.local/api/4.0/edges/{edgeid}/mgmtinterface
+Other Interfaces = https://nsx.glacier.local/api/4.0/edges/{edgeid}/interfaces
+Routes = https://<nsxmgr-ip>/api/4.0/edges/<edgeId>/routing/config
+OSPF config = https://<nsxmgr-ip>/api/4.0/edges/<edgeId>/routing/config/ospf
+
+create = POST https://<nsxmgr-ip>/api/4.0/edges 

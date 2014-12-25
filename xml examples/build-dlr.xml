@@ -1,0 +1,122 @@
+<edge>
+<datacenterMoid>$($moref.datacenter)</datacenterMoid>
+<name>$($config.router.name)</name>
+<fqdn>$($config.router.name)</fqdn>
+ <appliances>
+<applianceSize>compact</applianceSize>
+ <appliance>
+<highAvailabilityIndex>$($config.router.ha)</highAvailabilityIndex>
+<resourcePoolId>$($moref.rp)</resourcePoolId>
+<datastoreId>$($moref.datastore)</datastoreId>
+<vmFolderId>$($moref.folder)</vmFolderId>
+ </appliance>
+ </appliances>
+<type>distributedRouter</type>
+ <mgmtInterface>
+<label>vNic_0</label>
+<name>mgmtInterface</name>
+<addressGroups />
+<mtu>1500</mtu>
+<index>0</index>
+<connectedToId>$($moref.router_mgmt)</connectedToId>
+ </mgmtInterface>
+
+<features>
+<firewall>
+<enabled>$($config.router.firewall)</enabled>
+</firewall>
+</features>
+
+<routing>
+<enabled>true</enabled>
+<routingGlobalConfig>
+<routerId>$($config.transit.routerip)</routerId>
+<logging>
+<enable>true</enable>
+<logLevel>warning</logLevel>
+</logging>
+</routingGlobalConfig>
+<staticRouting>
+<defaultRoute>
+<vnic>2</vnic>
+<mtu>1500</mtu>
+<gatewayAddress>$($config.transit.edgeip)</gatewayAddress>
+</defaultRoute>
+</staticRouting>
+<ospf>
+<enabled>$($config.router.ospf.enabled)</enabled>
+<protocolAddress>$($config.transit.protoip)</protocolAddress>
+<forwardingAddress>$($config.transit.routerip)</forwardingAddress>
+<ospfAreas>
+<ospfArea>
+<areaId>$($config.router.ospf.area)</areaId>
+<type>$($config.router.ospf.type)</type>
+<authentication>
+<type>none</type>
+</authentication>
+</ospfArea>
+</ospfAreas>
+<ospfInterfaces>
+<ospfInterface>
+<vnic>2</vnic>
+<areaId>$($config.router.ospf.area)</areaId>
+<helloInterval>10</helloInterval>
+<deadInterval>40</deadInterval>
+<priority>128</priority>
+<cost>1</cost>
+<mtuIgnore>false</mtuIgnore>
+</ospfInterface>
+</ospfInterfaces>
+<redistribution>
+<enabled>true</enabled>
+<rules>
+<rule>
+<id>0</id>
+<from>
+<isis>false</isis>
+<ospf>false</ospf>
+<bgp>false</bgp>
+<static>false</static>
+<connected>true</connected>
+</from>
+<action>permit</action>
+</rule>
+</rules>
+</redistribution>
+<gracefulRestart>true</gracefulRestart>
+<defaultOriginate>false</defaultOriginate>
+</ospf>
+</routing>
+
+ <interfaces>
+
+ <interface>
+<name>$($config.transit.name)</name>
+<type>uplink</type>
+<mtu>1500</mtu>
+<isConnected>true</isConnected>
+<addressGroups>
+<addressGroup>
+<primaryAddress>$($config.transit.routerip)</primaryAddress>
+<subnetMask>$($config.transit.mask)</subnetMask>
+</addressGroup>
+</addressGroups>
+<connectedToId>$($switchvwire.get_Item($config.transit.name))</connectedToId>
+ </interface>
+
+ <interface>
+<name>$($_.name)</name>
+<type>internal</type>
+<mtu>1500</mtu>
+<isConnected>true</isConnected>
+<addressGroups>
+<addressGroup>
+<primaryAddress>$($_.ip)</primaryAddress>
+<subnetMask>$($_.mask)</subnetMask>
+</addressGroup>
+</addressGroups>
+<connectedToId>$($switchvwire.get_Item($_.name))</connectedToId>
+ </interface>
+
+ </interfaces>
+ </edge>
