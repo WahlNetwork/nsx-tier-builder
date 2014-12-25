@@ -5,12 +5,16 @@
  <appliances>
 <applianceSize>compact</applianceSize>
  <appliance>
-<highAvailabilityIndex>$($config.router.ha)</highAvailabilityIndex>
 <resourcePoolId>$($moref.rp)</resourcePoolId>
 <datastoreId>$($moref.datastore)</datastoreId>
 <vmFolderId>$($moref.folder)</vmFolderId>
  </appliance>
  </appliances>
+ 
+<cliSettings>
+<remoteAccess>$($config.router.ssh)</remoteAccess>
+</cliSettings>
+ 
 <type>distributedRouter</type>
  <mgmtInterface>
 <label>vNic_0</label>
@@ -25,6 +29,9 @@
 <firewall>
 <enabled>$($config.router.firewall)</enabled>
 </firewall>
+<highAvailability>
+<enabled>$($config.router.ha)</enabled>
+</highAvailability>
 </features>
 
 <routing>

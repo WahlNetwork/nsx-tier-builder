@@ -1,6 +1,7 @@
 {
     "edge": {
         "firewall": "disabled",
+		"ha": "false",
         "management": {
             "iface": "VLAN20-Lab",
             "ip": ""
@@ -11,17 +12,19 @@
             "enabled": "true",
             "type": "normal"
         },
-        "tenant": "",
+        "ssh": "true",
+		"tenant": "",
         "uplink": {
             "iface": "VLAN20-Lab",
             "ip": "172.16.20.254",
             "mask": "255.255.255.0",
-            "name": "Uplink-Edge"
+            "name": "Uplink-Edge",
+			"gateway": "172.16.20.1"
         }
     },
     "router": {
         "firewall": "disabled",
-        "ha": "0",
+        "ha": "false",
         "management": {
             "iface": "VLAN20-Lab",
             "ip": ""
@@ -32,7 +35,8 @@
             "enabled": "true",
             "type": "normal"
         },
-        "tenant": ""
+        "ssh": "true",
+		"tenant": ""
     },
     "switches": [
         {
