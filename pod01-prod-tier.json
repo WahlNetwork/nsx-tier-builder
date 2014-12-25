@@ -1,0 +1,67 @@
+{
+    "edge": {
+        "firewall": "disabled",
+        "management": {
+            "iface": "VLAN20-Lab",
+            "ip": ""
+        },
+        "name": "POD01-PROD-ESG",
+        "ospf": {
+            "area": "51",
+            "enabled": "true",
+            "type": "normal"
+        },
+        "tenant": "",
+        "uplink": {
+            "iface": "VLAN20-Lab",
+            "ip": "172.16.20.254",
+            "mask": "255.255.255.0",
+            "name": "Uplink-Edge"
+        }
+    },
+    "router": {
+        "firewall": "disabled",
+        "ha": "0",
+        "management": {
+            "iface": "VLAN20-Lab",
+            "ip": ""
+        },
+        "name": "POD01-PROD-DLR",
+        "ospf": {
+            "area": "51",
+            "enabled": "true",
+            "type": "normal"
+        },
+        "tenant": ""
+    },
+    "switches": [
+        {
+            "ip": "192.168.10.1",
+            "mask": "255.255.255.0",
+            "name": "POD01-PROD-WEB"
+        },
+        {
+            "ip": "192.168.20.1",
+            "mask": "255.255.255.0",
+            "name": "POD01-PROD-APP"
+        },
+        {
+            "ip": "192.168.30.1",
+            "mask": "255.255.255.0",
+            "name": "POD01-PROD-DB"
+        }
+    ],
+    "transit": {
+        "edgeip": "192.168.99.1",
+        "mask": "255.255.255.248",
+        "name": "POD01-PROD-TRANSIT",
+        "protoip": "192.168.99.3",
+        "routerip": "192.168.99.2"
+    },
+    "vsphere": {
+        "cluster": "Lab",
+        "datacenter": "Home Lab",
+        "datastore": "NAS2-Lab",
+        "folder": "NSX"
+    }
+}
