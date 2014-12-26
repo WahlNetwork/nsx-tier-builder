@@ -1,7 +1,7 @@
 NSX Tier Builder
 ================
 
-In a nutshell, the script builds switches, a router, and an edge for your VMware NSX application tiers (prod, test, dev, spongebob, etc). The script assumes that you've already deployed NSX and configured the cluster, segments, transport zone, and VXLAN tunnels.
+In a nutshell, the "create" script builds switches, a router, and an edge for your VMware NSX application tiers (prod, test, dev, spongebob, etc). The "remove" script does the opposite. Both scripts assume that you've already deployed NSX and configured the cluster, segments, transport zone, and VXLAN tunnels.
 
 ![Create-NSXTier](https://github.com/WahlNetwork/nsx-tier-builder/blob/screenshots/create-nsx-tier.jpg)
 
@@ -20,3 +20,12 @@ Here's roughly how this works:
 1. Your logical switches are created, including a transit switch (required).
 2. A logical router is created as the gateway for all of your logical switches (using the IP you assigned on each switch). After it is online, the routing config is applied. The router will advertise its directly connected routes via OSPF to the northbound transit switch where the edge lives.
 3. A logical edge gateway is created for physical connectivity and to provide services. It has a southbound (internal) interface on the transit network which talks to the router, and a northbound (uplink) interface on a VDS port group. After it is online, the routing config is applied. The edge will advertise OSPF southbound by default, but requires you to manually or programmatically configure northbound OSPF (this seemed too dangerous for a generic config).
+
+### Parameters
+
+1. **NSX** = NSX Manager IP or FQDN
+2. **NSXPassword** (secure string) = NSX Manager credentials with administrative authority
+3. **JSONPath** = Absolute path to your JSON configuration file
+4. **vCenter** = vCenter Server IP or FQDN
+5. **NSXUsername** (*optional*) = NSX Manager username. Defaults to "admin" if no value is specified.
+6. **NoAskCreds** (*optional*) = Switch that informs the script to use your current Windows creds for vCenter login.
