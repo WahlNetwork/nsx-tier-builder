@@ -1,13 +1,13 @@
 NSX Tier Builder
 ================
 
-<!-- MarkdownTOC autolink=true -->
+<!-- MarkdownTOC autolink=true bracket=round -->
 
-- [Introduction][introduction]
-- [Configuration][configuration]
-	- [Build Topology][build-topology]
-	- [Script Parameters][script-parameters]
-- [Workflow][workflow]
+- [Introduction](#introduction)
+- [Configuration](#configuration)
+	- [Build Topology](#build-topology)
+	- [Script Parameters](#script-parameters)
+- [Workflow](#workflow)
 
 <!-- /MarkdownTOC -->
 
