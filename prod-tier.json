@@ -10,7 +10,9 @@
 		"ospf" : {
 			"area" : "51",
 			"enabled" : "true",
-			"type" : "normal"
+			"type" : "normal",
+			"internal" : "true",
+			"uplink" : "false"
 		},
 		"cli" : {
 			"enabled" : "true",
