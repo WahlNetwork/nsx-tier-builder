@@ -8,6 +8,7 @@ NSX Tier Builder
 	- [Build Topology](#build-topology)
 	- [Script Parameters](#script-parameters)
 - [Workflow](#workflow)
+- [Other Cool Projects](#other-cool-projects)
 
 <!-- /MarkdownTOC -->
 
@@ -48,4 +49,8 @@ The script follows a logical progression in order to gracefully build (and remov
 
 1. Your logical switches are created, including a transit switch (required).
 2. A logical router is created as the gateway for all of your logical switches (using the IP you assigned on each switch). After it is online, the routing config is applied. The router will advertise its directly connected routes via OSPF to the northbound transit switch where the edge lives.
-3. A logical edge gateway is created for physical connectivity and to provide services. It has a southbound (internal) interface on the transit network which talks to the router, and a northbound (uplink) interface on a VDS port group. After it is online, the routing config is applied. The edge will advertise OSPF southbound by default, but requires you to manually or programmatically configure northbound OSPF (this seemed too dangerous for a generic config).
+3. A logical edge gateway is created for physical connectivity and to provide services. It has a southbound (internal) interface on the transit network which talks to the router, and a northbound (uplink) interface on a VDS port group. After it is online, the routing config is applied. The edge will advertise OSPF northbound and southbound if it was configured.
+
+# Other Cool Projects
+
+* vtagion has a [neat project](https://github.com/vtagion/VMware-Products/blob/master/NSX%20Deploy.ps1) to deploy and link NSX Manager to vCenter Server.
