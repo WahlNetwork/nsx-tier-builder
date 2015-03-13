@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">	
+		<title>JSON Generator</title>
+		<style>
+			*,*:before,*:after{
+				-moz-box-sizing:border-box;
+				-webkit-box-sizing:border-box;
+				box-sizing:border-box;
+			}
+			html{
+				font-family:Helvetica,Arial,sans-serif;
+				font-size:100%;
+				background:#333333;
+				color:#333333;
+				-webkit-font-smoothing:antialiased;
+			}
+			#page-wrapper{
+				width:960px;
+				background:#FFFFFF;
+				padding:1rem;
+				margin:1rem auto;
+				min-height:300px;
+				border-top:5px solid #1E90FF;
+				box-shadow:0 2px 10px rgba(0,0,0,0.8);
+			}
+			h1,h2{
+				margin:0 0 .5rem 0;
+			}
+			hr{
+				border:0;
+				height:0;
+				border-top:1px solid #1E90FF;
+			}
+			input,select,textarea{
+				height:40px;
+				width:19.1%;
+				padding:0.5rem;
+				font-size:1rem;
+				border:1px solid #D9D9D9;
+				border-radius:3px;
+				box-shadow:inset 0 1px 1px rgba(0,0,0,0.1);
+				margin-bottom:.5rem;
+			}
+			textarea{
+				width:100%;
+				min-height:300px;
+			}
+			.formLabel{
+				display:inline-block;
+				width:14%;
+				text-align:right;
+				font-weight:bold;
+				font-size:1rem;
+				border-radius:3px;
+				margin-bottom:.5rem;
+				margin-right:-.35rem;
+				background-color:#1E90FF;
+				color:#FFFFFF;
+			}
+			#buttonDiv{
+				width:100%;
+				height:40px;
+				margin-bottom:.5rem;
+			}
+			button,#uploadLabel{
+				vertical-align:top;
+				width:19.6%;
+				height:100%;
+				display:inline-block;
+				border-radius:3px;
+				border:none;
+				font-size:1rem;
+				padding:0.5rem 1rem;
+				background:#1E90FF;
+				border-bottom:1px solid #D9D9D9;
+				color:white;
+				text-align:center;
+				font-weight:bold;
+			}
+			#uploadLabel{
+				padding:0.6rem 1rem;
+			}
+			button:hover,#uploadLabel:hover{
+				opacity:0.75;
+				cursor:pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="page-wrapper" class="clearfix">
+			<h1>JSON Generator</h1>
+			<hr/>
+			<div id="formDiv">
+				<h2>edge</h2>
+					<label class="formLabel">firewall:</label>
+					<select name="edge.firewall">
+						<option value="" selected="selected"></option>
+						<option value="enabled">enabled</option>
+						<option value="disabled">disabled</option>
+					</select>
+					<label class="formLabel">ha:</label>
+					<select name="edge.ha">
+						<option value="" selected="selected"></option>
+						<option value="true">true</option>
+						<option value="false">false</option>
+					</select>
+					<label class="formLabel">mgmt interface:</label>
+					<input type="text" name="edge.management.iface" placeholder="interface1"/>
+					<label class="formLabel">mgmt ip:</label>
+					<input type="text" name="edge.management.ip" placeholder="0.0.0.0"/>
+					<label class="formLabel">name:</label>
+					<input type="text" name="edge.name" placeholder="Production"/>
+					<label class="formLabel">ospf area:</label>
+					<input type="text" name="edge.ospf.area" placeholder="51"/>
+					<label class="formLabel">ospf enabled:</label>
+					<select name="edge.ospf.enabled">
+						<option value="" selected="selected"></option>
+						<option value="true">true</option>
+						<option value="false">false</option>
+					</select>
+					<label class="formLabel">ospf type:</label>
+					<input type="text" name="edge.ospf.type" placeholder="normal"/>
+					<label class="formLabel">ospf internal:</label>
+					<select name="edge.ospf.internal">
+						<option value="" selected="selected"></option>
+						<option value="true">true</option>
+						<option value="false">false</option>
+					</select>
+					<label class="formLabel">ospf uplink:</label>
+					<select name="edge.ospf.uplink">
+						<option value="" selected="selected"></option>
+						<option value="true">true</option>
+						<option value="false">false</option>
+					</select>
+					<label class="formLabel">cli enabled:</label>
+					<select name="edge.cli.enabled">
+						<option value="" selected="selected"></option>
+						<option value="true">true</option>
+						<option value="false">false</option>
+					</select>
+					<label class="formLabel">cli user:</label>
+					<input type="text" name="edge.cli.user" placeholder="admin"/>
+					<label class="formLabel">cli pass:</label>
+					<input type="text" name="edge.cli.pass" placeholder="password"/>
+					<label class="formLabel">cli expiration:</label>
+					<input type="text" name="edge.cli.expiredays" placeholder="99999"/>
+					<label class="formLabel">tenant:</label>
+					<input type="text" name="edge.tenant" placeholder=""/>
+					<label class="formLabel">uplink gateway:</label>
+					<input type="text" name="edge.uplink.gateway" placeholder="0.0.0.0"/>
+					<label class="formLabel">uplink interface:</label>
+					<input type="text" name="edge.uplink.iface" placeholder="interface1"/>
+					<label class="formLabel">uplink ip:</label>
+					<input type="text" name="edge.uplink.ip" placeholder="0.0.0.0"/>
+					<label class="formLabel">uplink mask:</label>
+					<input type="text" name="edge.uplink.mask" placeholder="255.255.255.255"/>
+					<label class="formLabel">uplink name:</label>
+					<input type="text" name="edge.uplink.name" placeholder="Uplink-Edge"/>
+				<hr/>
+				<h2>router</h2>
+					<label class="formLabel">firewall:</label>
+					<select name="router.firewall">
+						<option value="" selected="selected"></option>
+						<option value="enabled">enabled</option>
+						<option value="disabled">disabled</option>
+					</select>
+					<label class="formLabel">ha:</label>
+					<select name="router.ha">
+						<option value="" selected="selected"></option>
+						<option value="true">true</option>
+						<option value="false">false</option>
+					</select>
+					<label class="formLabel">mgmt interface:</label>
+					<input type="text" name="router.management.iface" placeholder="interface1"/>
+					<label class="formLabel">mgmt ip:</label>
+					<input type="text" name="router.management.ip" placeholder="0.0.0.0"/>
+					<label class="formLabel">name:</label>
+					<input type="text" name="router.management.name" placeholder="Prod-DLR"/>
+					<label class="formLabel">ospf area:</label>
+					<input type="text" name="router.ospf.area" placeholder="51"/>
+					<label class="formLabel">ospf enabled:</label>
+					<select name="router.ospf.enabled">
+						<option value="" selected="selected"></option>
+						<option value="true">true</option>
+						<option value="false">false</option>
+					</select>
+					<label class="formLabel">ospf type:</label>
+					<input type="text" name="router.ospf.type" placeholder="normal"/>
+					<label class="formLabel">cli enabled:</label>
+					<select name="router.cli.enabled">
+						<option value="" selected="selected"></option>
+						<option value="true">true</option>
+						<option value="false">false</option>
+					</select>
+					<label class="formLabel">cli user:</label>
+					<input type="text" name="router.cli.user" placeholder="admin"/>
+					<label class="formLabel">cli password:</label>
+					<input type="text" name="router.cli.pass" placeholder="password"/>
+					<label class="formLabel">cli expiration:</label>
+					<input type="text" name="router.cli.expiredays" placeholder="99999"/>
+					<label class="formLabel">tenant:</label>
+					<input type="text" name="router.tenant" placeholder=""/>
+				<hr/>
+				<h2>switches</h2>
+					<label class="formLabel">switch 1 ip:</label>
+					<input type="text" name="switches[0].ip" placeholder="0.0.0.0"/>
+					<label class="formLabel">switch 1 mask:</label>
+					<input type="text" name="switches[0].mask" placeholder="255.255.255.255"/>
+					<label class="formLabel">switch1 name:</label>
+					<input type="text" name="switches[0].name" placeholder="switch1"/>
+					<label class="formLabel">switch 2 ip:</label>
+					<input type="text" name="switches[1].ip" placeholder="0.0.0.0"/>
+					<label class="formLabel">switch 2 mask:</label>
+					<input type="text" name="switches[1].mask" placeholder="255.255.255.255"/>
+					<label class="formLabel">switch2 name:</label>
+					<input type="text" name="switches[1].name" placeholder="switch2"/>
+					<label class="formLabel">switch 3 ip:</label>
+					<input type="text" name="switches[2].ip" placeholder="0.0.0.0"/>
+					<label class="formLabel">switch 3 mask:</label>
+					<input type="text" name="switches[2].mask" placeholder="255.255.255.255"/>
+					<label class="formLabel">switch 3 name:</label>
+					<input type="text" name="switches[2].name" placeholder="switch3"/>
+				<hr/>
+				<h2>transit</h2>
+					<label class="formLabel">edge ip:</label>
+					<input type="text" name="transit.edgeip" placeholder="0.0.0.0"/>
+					<label class="formLabel">mask:</label>
+					<input type="text" name="transit.mask" placeholder="255.255.255.255"/>
+					<label class="formLabel">name:</label>
+					<input type="text" name="transit.name" placeholder="Prod-Transit"/>
+					<label class="formLabel">proto ip:</label>
+					<input type="text" name="transit.protoip" placeholder="0.0.0.0"/>
+					<label class="formLabel">router ip:</label>
+					<input type="text" name="transit.routerip" placeholder="0.0.0.0"/>
+				<hr/>
+				<h2>vsphere</h2>
+					<label class="formLabel">cluster:</label>
+					<input type="text" name="vsphere.cluster" placeholder="Lab"/>
+					<label class="formLabel">datacenter:</label>
+					<input type="text" name="vsphere.datacenter" placeholder="Lab"/>
+					<label class="formLabel">datastore:</label>
+					<input type="text" name="vsphere.datastore" placeholder="Lab"/>
+					<label class="formLabel">folder:</label>
+					<input type="text" name="vsphere.folder" placeholder="NSX"/>
+				<hr/>
+			</div>
+			<div id="buttonDiv">
+				<button onclick="clearJSON()">Clear JSON</button>
+				<button onclick="createJSON()">Create JSON</button>
+				<button onclick="fillForm()">Fill Form</button>
+				<button onclick="downloadJSON()">Download JSON</button>
+				<label id="uploadLabel" for="jsonFile">Upload JSON</label>
+				<input type="file" id="jsonFile" style="visibility:hidden" onchange="uploadJSON()"/>
+			</div>
+			<textarea id="jsonTextArea" placeholder="The JSON file contents will display here...">
+{
+	"edge": {
+		"firewall": "enabled",
+		"ha": "true",
+		"management": {
+			"iface": "interface1",
+			"ip": "0.0.0.0"
+		},
+		"name": "edge",
+		"ospf": {
+			"area": "1",
+			"enabled": "true",
+			"type": "normal",
+			"internal": "true",
+			"uplink": "true"
+		},
+		"cli": {
+			"enabled": "true",
+			"user": "username",
+			"pass": "password",
+			"expiredays": "99999"
+		},
+		"tenant": "",
+		"uplink": {
+			"gateway": "0.0.0.0",
+			"iface": "interface1",
+			"ip": "0.0.0.0",
+			"mask": "255.255.255.255",
+			"name": "uplink"
+		}
+	},
+	"router": {
+		"firewall": "enabled",
+		"ha": "true",
+		"management": {
+			"iface": "interface1",
+			"ip": "0.0.0.0"
+		},
+		"name": "router",
+		"ospf": {
+			"area": "1",
+			"enabled": "true",
+			"type": "normal"
+		},
+		"cli": {
+			"enabled": "true",
+			"user": "username",
+			"pass": "password",
+			"expiredays": "99999"
+		},
+		"tenant": ""
+	},
+	"switches": [{
+			"ip": "0.0.0.0",
+			"mask": "255.255.255.255",
+			"name": "switch1"
+		}, {
+			"ip": "0.0.0.0",
+			"mask": "255.255.255.255",
+			"name": "switch2"
+		}, {
+			"ip": "0.0.0.0",
+			"mask": "255.255.255.255",
+			"name": "switch3"
+		}
+	],
+	"transit": {
+		"edgeip": "0.0.0.0",
+		"mask": "255.255.255.255",
+		"name": "transit",
+		"protoip": "0.0.0.0",
+		"routerip": "0.0.0.0"
+	},
+	"vsphere": {
+		"cluster": "cluster",
+		"datacenter": "datacenter",
+		"datastore": "datastore",
+		"folder": "folder"
+	}
+}
+			</textarea>
+			<a id="downloadLink"></a>
+		</div>
+		<script src="form2js.js"></script>
+		<script src="js2form.js"></script>
+		<script tsrc="json2.js"></script>
+		<script>
+			function createJSON(){
+				document.getElementById('jsonTextArea').value=JSON.stringify(form2js(document.getElementById('formDiv')),null,'\t');
+			};
+			function clearJSON(){
+				document.getElementById('jsonTextArea').value='';
+			};
+			function uploadJSON(){
+				var fileToLoad=document.getElementById("jsonFile").files[0];
+				var fileReader=new FileReader();
+				fileReader.onload=function(fileLoadedEvent){
+					var textFromFileLoaded=fileLoadedEvent.target.result;
+					document.getElementById("jsonTextArea").value=textFromFileLoaded;
+				};
+				fileReader.readAsText(fileToLoad,"UTF-8");
+			};
+			function fillForm(){
+				js2form(document.getElementById('formDiv'),JSON.parse(document.getElementById('jsonTextArea').value));
+			};
+			function downloadJSON(){
+				jsonBlobFile=new Blob([document.getElementById("jsonTextArea").value],{type:'text/plain'});
+				if(window.navigator.msSaveBlob){
+					window.navigator.msSaveBlob(jsonBlobFile,"file.json");
+				}else{
+					document.getElementById("downloadLink").download="file.json";
+					document.getElementById("downloadLink").href=window.URL.createObjectURL(jsonBlobFile);
+					document.getElementById("downloadLink").click();
+				};
+			};
+		</script>
+	</body>
+</html>
